@@ -57,19 +57,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  useEffect(() => {
-    const previousScrollRestoration = window.history.scrollRestoration;
-    window.history.scrollRestoration = "manual";
-
-    if (!window.location.hash) {
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
-
-    return () => {
-      window.history.scrollRestoration = previousScrollRestoration;
-    };
-  }, []);
-
   // Keep focus and background scrolling predictable while the mobile menu is open.
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -113,8 +100,11 @@ export function Navbar() {
     };
   }, [mobileMenuOpen]);
 
+  const isCurrentRoute = (item: NavItem) =>
+    pathname === item.href || (item.slug === "work" && pathname.startsWith("/projects/"));
+
   const isCurrentActive = (item: NavItem) => {
-    if (pathname === item.href) return true;
+    if (isCurrentRoute(item)) return true;
     if (pathname === "/" && activeSection === item.slug) return true;
     return false;
   };
@@ -148,6 +138,7 @@ export function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
+                  aria-current={isCurrentRoute(item) ? "page" : undefined}
                   className={`animated-underline relative rounded-md px-3 py-1.5 text-xs font-medium tracking-tight transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                     active
                       ? "text-[var(--fg)] font-semibold"
@@ -219,8 +210,9 @@ export function Navbar() {
               return (
                 <Link
                   key={item.name}
-                  href={pathname === "/" ? `#${item.slug}` : item.href}
+                  href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
+                  aria-current={isCurrentRoute(item) ? "page" : undefined}
                   className={`group flex min-h-11 items-center justify-between text-2xl font-light tracking-tight transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                     active ? "text-[var(--accent)] font-normal" : "text-[var(--fg)]"
                   }`}

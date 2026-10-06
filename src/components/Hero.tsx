@@ -68,7 +68,7 @@ export function Hero() {
                 <button
                   type="button"
                   onClick={() => scrollTo("work")}
-                  className="interactive-button group inline-flex items-center gap-2 rounded-lg bg-[var(--fg)] px-5 py-3 text-xs font-medium text-[var(--bg)] transition-all duration-200 hover:bg-[var(--accent)] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                  className="interactive-button interactive-button--primary group inline-flex items-center gap-2 rounded-lg bg-[var(--fg)] px-5 py-3 text-xs font-medium text-[var(--bg)] transition-all duration-200 hover:bg-[var(--accent)] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                 >
                   <span className="transition-transform duration-200 group-hover:translate-x-0.5">
                     View My Projects
