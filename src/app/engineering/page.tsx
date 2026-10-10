@@ -49,7 +49,7 @@ export default function EngineeringPage() {
           {/* Header */}
           <div className="mb-14 border-b border-[var(--border)] pb-10">
             <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-              03 / ENGINEERING
+              ENGINEERING
             </span>
             <h1 className="font-display mt-3 text-4xl sm:text-5xl font-normal tracking-tight text-[var(--fg)]">
               Full-Stack Engineering & Architecture

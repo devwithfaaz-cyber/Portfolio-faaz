@@ -4,18 +4,43 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { TOOLKIT_GROUPS } from "@/data/portfolioData";
 import { MarqueeTicker } from "./interactive/MarqueeTicker";
+import { TextScramble } from "./interactive/TextScramble";
 import { ArrowUpRight } from "lucide-react";
 
 const ALL_SKILLS = [
-  "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "Redis",
-  "Neon", "REST APIs", "JWT Auth", "Stripe", "Tailwind CSS", "JavaScript",
-  "Python", "Git", "Vercel", "Prisma", "SQL", "HTML", "CSS", "Web Vitals",
+  { label: "React", className: "border-[#61DAFB]/30 bg-[#61DAFB]/14 text-[#7CD8FF]" },
+  { label: "Next.js", className: "border-[#111827]/10 bg-[#111827] text-white" },
+  { label: "TypeScript", className: "border-[#3178C6]/30 bg-[#3178C6] text-white" },
+  { label: "Node.js", className: "border-[#68A063]/30 bg-[#68A063] text-[#F5FFF3]" },
+  { label: "PostgreSQL", className: "border-[#336791]/30 bg-[#336791] text-white" },
+  { label: "Redis", className: "border-[#DC382D]/30 bg-[#DC382D] text-white" },
+  { label: "Neon", className: "border-[#52C5FF]/30 bg-[#52C5FF] text-[#081A2B]" },
+  { label: "REST APIs", className: "border-[#7C3AED]/30 bg-[#7C3AED]/90 text-white" },
+  { label: "JWT Auth", className: "border-[#F59E0B]/30 bg-[#F59E0B] text-[#1F2937]" },
+  { label: "Stripe", className: "border-[#635BFF]/30 bg-[#635BFF] text-white" },
+  { label: "Tailwind CSS", className: "border-[#06B6D4]/30 bg-[#06B6D4] text-[#062B35]" },
+  { label: "JavaScript", className: "border-[#F7DF1E]/50 bg-[#F7DF1E] text-[#111827]" },
+  { label: "Python", className: "border-[#3776AB]/30 bg-[#3776AB] text-white" },
+  { label: "Git", className: "border-[#F05032]/30 bg-[#F05032] text-white" },
+  { label: "Vercel", className: "border-[#111827]/10 bg-[#111827] text-white" },
+  { label: "Prisma", className: "border-[#2D3748]/20 bg-[#2D3748] text-white" },
+  { label: "SQL", className: "border-[#5B21B6]/30 bg-[#5B21B6] text-white" },
+  { label: "HTML", className: "border-[#E34F26]/30 bg-[#E34F26] text-white" },
+  { label: "CSS", className: "border-[#1572B6]/30 bg-[#1572B6] text-white" },
+  { label: "Web Vitals", className: "border-[#14B8A6]/30 bg-[#14B8A6] text-[#072020]" },
 ];
 
 const SECOND_ROW = [
-  "Full-Stack Engineering", "Clean Architecture", "Component Design",
-  "Database Schemas", "API Security", "Performance Budgets",
-  "Serverless Functions", "Auth Systems", "UI Systems", "Core Web Vitals",
+  { label: "Full-Stack Engineering", className: "border-[#A855F7]/30 bg-[#A855F7]/90 text-white" },
+  { label: "Clean Architecture", className: "border-[#10B981]/30 bg-[#10B981] text-[#062B20]" },
+  { label: "Component Design", className: "border-[#F97316]/30 bg-[#F97316] text-white" },
+  { label: "Database Schemas", className: "border-[#38BDF8]/30 bg-[#38BDF8] text-[#082F49]" },
+  { label: "API Security", className: "border-[#F43F5E]/30 bg-[#F43F5E] text-white" },
+  { label: "Performance Budgets", className: "border-[#22C55E]/30 bg-[#22C55E] text-[#052E16]" },
+  { label: "Serverless Functions", className: "border-[#8B5CF6]/30 bg-[#8B5CF6] text-white" },
+  { label: "Auth Systems", className: "border-[#F59E0B]/30 bg-[#F59E0B] text-[#1F2937]" },
+  { label: "UI Systems", className: "border-[#EC4899]/30 bg-[#EC4899] text-white" },
+  { label: "Core Web Vitals", className: "border-[#2DD4BF]/30 bg-[#2DD4BF] text-[#052E2A]" },
 ];
 
 export function ToolkitSection() {
@@ -33,11 +58,8 @@ export function ToolkitSection() {
         {/* Section Header */}
         <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4" data-reveal>
           <div>
-            <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-              04 / TOOLKIT
-            </span>
-            <h2 className="font-display mt-3 text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
-              Technologies I Work With
+            <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
+              <TextScramble text="Technologies I Work With" duration={550} className="block" />
             </h2>
           </div>
           <div className="flex flex-col items-start md:items-end gap-1">

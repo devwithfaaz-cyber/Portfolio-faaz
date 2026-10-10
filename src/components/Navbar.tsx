@@ -4,7 +4,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { SocialLinkButton } from "./SocialLinkButton";
+import { Menu, X } from "lucide-react";
 
 interface NavItem {
   name: string;
@@ -13,8 +14,8 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { name: "Work", href: "/work", slug: "work" },
   { name: "About", href: "/about", slug: "about" },
+  { name: "Work", href: "/work", slug: "work" },
   { name: "Engineering", href: "/engineering", slug: "engineering" },
   { name: "Skills", href: "/skills", slug: "skills" },
   { name: "Education", href: "/education", slug: "education" },
@@ -112,17 +113,17 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`mobile-site-header fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`mobile-site-header fixed left-0 right-0 z-40 mx-auto w-[calc(100%-1.5rem)] max-w-6xl rounded-2xl border border-[var(--border)] bg-[var(--bg)]/90 shadow-xs backdrop-blur-xl transition-all duration-300 supports-[backdrop-filter]:bg-[var(--bg)]/75 sm:w-[calc(100%-2.5rem)] ${
           isScrolled
-            ? "border-b border-[var(--border)] bg-[var(--bg)]/85 py-3.5 backdrop-blur-md shadow-xs"
-            : "border-b border-transparent bg-transparent py-5"
+            ? "py-2.5 shadow-md"
+            : "py-3"
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 sm:px-8">
+        <div className="mx-auto flex items-center justify-between gap-3 px-2 sm:px-3">
           {/* Logo / Name */}
           <Link
             href="/"
-            className="group flex items-center gap-2 text-sm font-semibold tracking-tight text-[var(--fg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+            className="group flex items-center gap-2 text-sm font-semibold tracking-tight text-[var(--fg)] transition-colors duration-250 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
           >
             <span className="mono-tag text-xs font-bold tracking-widest text-[var(--fg)] group-hover:text-[var(--accent)] transition-colors">
               FAAZ MIRZA
@@ -139,10 +140,24 @@ export function Navbar() {
                   key={item.name}
                   href={item.href}
                   aria-current={isCurrentRoute(item) ? "page" : undefined}
-                  className={`animated-underline relative rounded-md px-3 py-1.5 text-xs font-medium tracking-tight transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
-                    active
-                      ? "text-[var(--fg)] font-semibold"
-                      : "text-[var(--fg-muted)] hover:text-[var(--fg)]"
+                  className={`animated-underline navbar-animated-underline relative shrink-0 rounded-xl border px-2.5 py-2 text-xs font-medium tracking-tight transition-all duration-250 hover:-translate-y-0.5 hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] sm:px-3 ${
+                    item.slug === "about"
+                      ? "border-[var(--border)] bg-[var(--surface)] text-[var(--fg)] hover:border-slate-300 hover:bg-white hover:text-slate-900"
+                      : item.slug === "work"
+                        ? "border-transparent bg-transparent text-[var(--fg-muted)] hover:border-red-600 hover:bg-red-600 hover:text-white"
+                        : item.slug === "engineering"
+                          ? "border-transparent bg-transparent text-[var(--fg-muted)] hover:border-blue-600 hover:bg-blue-600 hover:text-white"
+                          : item.slug === "skills"
+                            ? "border-transparent bg-transparent text-[var(--fg-muted)] hover:border-violet-600 hover:bg-violet-600 hover:text-white"
+                            : item.slug === "education"
+                              ? "border-transparent bg-transparent text-[var(--fg-muted)] hover:border-emerald-600 hover:bg-emerald-600 hover:text-white"
+                              : item.slug === "contact"
+                                ? "border-transparent bg-transparent text-[var(--fg-muted)] hover:border-amber-600 hover:bg-amber-600 hover:text-white"
+                          : `border-transparent bg-transparent ${
+                              active
+                                ? "text-[var(--fg)] font-semibold"
+                                : "text-[var(--fg-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--fg)]"
+                            }`
                   }`}
                 >
                   {item.name}
@@ -160,7 +175,7 @@ export function Navbar() {
               ref={menuButtonRef}
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--fg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--fg)] transition-all duration-250 hover:scale-[1.03] hover:border-[var(--accent-border)] hover:bg-[var(--surface-hover)] hover:text-[var(--accent)] active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileMenuOpen}
             >
@@ -196,7 +211,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--fg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--border)] bg-[var(--surface)] text-[var(--fg)] transition-all duration-250 hover:scale-[1.03] hover:border-[var(--accent-border)] hover:bg-[var(--surface-hover)] hover:text-[var(--accent)] active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               aria-label="Close navigation menu"
             >
               <X className="h-5 w-5" />
@@ -213,7 +228,21 @@ export function Navbar() {
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   aria-current={isCurrentRoute(item) ? "page" : undefined}
-                  className={`group flex min-h-11 items-center justify-between text-2xl font-light tracking-tight transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
+                  className={`animated-underline navbar-animated-underline group flex min-h-11 items-center justify-between rounded-xl px-3 py-2 text-2xl font-light tracking-tight transition-all duration-250 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
+                    item.slug === "about"
+                      ? "hover:bg-white hover:text-slate-900"
+                      : item.slug === "work"
+                        ? "hover:bg-red-600 hover:text-white"
+                        : item.slug === "engineering"
+                          ? "hover:bg-blue-600 hover:text-white"
+                          : item.slug === "skills"
+                            ? "hover:bg-violet-600 hover:text-white"
+                            : item.slug === "education"
+                              ? "hover:bg-emerald-600 hover:text-white"
+                              : item.slug === "contact"
+                                ? "hover:bg-amber-600 hover:text-white"
+                                : ""
+                  } ${
                     active ? "text-[var(--accent)] font-normal" : "text-[var(--fg)]"
                   }`}
                 >
@@ -223,7 +252,7 @@ export function Navbar() {
                     </span>
                     <span>{item.name}</span>
                   </span>
-                  <span className="mono-tag text-xs opacity-0 transition-opacity group-hover:opacity-100 text-[var(--accent)]">
+                  <span className="mono-tag text-xs opacity-0 transition-opacity duration-250 group-hover:opacity-100 group-hover:text-current">
                     →
                   </span>
                 </Link>
@@ -238,35 +267,27 @@ export function Navbar() {
             </p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-[var(--fg-muted)]">
               {PERSONAL_INFO.socials.github && (
-                <a
+                <SocialLinkButton
+                  platform="github"
                   href={PERSONAL_INFO.socials.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link inline-flex min-h-11 items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                >
-                  GitHub <ArrowUpRight className="h-3 w-3" />
-                </a>
+                />
               )}
               {PERSONAL_INFO.socials.linkedin && (
-                <a
+                <SocialLinkButton
+                  platform="linkedin"
                   href={PERSONAL_INFO.socials.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link inline-flex min-h-11 items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                >
-                  LinkedIn <ArrowUpRight className="h-3 w-3" />
-                </a>
+                />
               )}
               {PERSONAL_INFO.socials.instagram && (
-                <a
+                <SocialLinkButton
+                  platform="instagram"
                   href={PERSONAL_INFO.socials.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link inline-flex min-h-11 items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                >
-                  Instagram <ArrowUpRight className="h-3 w-3" />
-                </a>
+                />
               )}
+              <SocialLinkButton
+                platform="whatsapp"
+                href={PERSONAL_INFO.socials.whatsapp}
+              />
             </div>
           </div>
         </div>

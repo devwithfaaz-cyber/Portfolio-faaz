@@ -3,7 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { ArrowUpRight } from "lucide-react";
+import { EmailLinkButton } from "./EmailLinkButton";
+import { SocialLinkButton } from "./SocialLinkButton";
 
 export function Footer() {
   return (
@@ -74,47 +75,36 @@ export function Footer() {
               <ul className="space-y-2 text-[var(--fg-muted)] font-light">
                 {PERSONAL_INFO.socials.github && (
                   <li>
-                    <a
+                    <SocialLinkButton
+                      platform="github"
                       href={PERSONAL_INFO.socials.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link inline-flex items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                    >
-                      GitHub <ArrowUpRight className="h-2.5 w-2.5" />
-                    </a>
+                    />
                   </li>
                 )}
                 {PERSONAL_INFO.socials.linkedin && (
                   <li>
-                    <a
+                    <SocialLinkButton
+                      platform="linkedin"
                       href={PERSONAL_INFO.socials.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link inline-flex items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                    >
-                      LinkedIn <ArrowUpRight className="h-2.5 w-2.5" />
-                    </a>
+                    />
                   </li>
                 )}
                 {PERSONAL_INFO.socials.instagram && (
                   <li>
-                    <a
+                    <SocialLinkButton
+                      platform="instagram"
                       href={PERSONAL_INFO.socials.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-link inline-flex items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                    >
-                      Instagram <ArrowUpRight className="h-2.5 w-2.5" />
-                    </a>
+                    />
                   </li>
                 )}
                 <li>
-                  <a
-                    href={`mailto:${PERSONAL_INFO.email}`}
-                    className="inline-flex items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                  >
-                    Email <ArrowUpRight className="h-2.5 w-2.5" />
-                  </a>
+                  <SocialLinkButton
+                    platform="whatsapp"
+                    href={PERSONAL_INFO.socials.whatsapp}
+                  />
+                </li>
+                <li>
+                  <EmailLinkButton />
                 </li>
               </ul>
             </div>

@@ -53,9 +53,10 @@ export const PERSONAL_INFO = {
   techCount: "10+",
   email: "faazmirza2862@gmail.com",
   socials: {
-    github: process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/faazmirza",
-    linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/faazmirza",
-    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://instagram.com/faazmirza_",
+    github: process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/devwithfaaz-cyber",
+    linkedin: "https://www.linkedin.com/in/faaz-ali-604b89442/",
+    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "https://www.instagram.com/faaz.ali_/",
+    whatsapp: "https://wa.me/923002414320",
   },
   introduction:
     "I build clean, high-performance, full-stack digital experiences. Passionate about turning complex requirements into scalable applications with modern web technologies, thoughtful code, and clean architecture.",

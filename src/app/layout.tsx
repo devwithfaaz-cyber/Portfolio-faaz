@@ -82,8 +82,8 @@ const jsonLd = {
   nationality: "Pakistani",
   url: "https://faazmirza.dev",
   sameAs: [
-    "https://github.com/faazmirza",
-    "https://instagram.com/faazmirza_",
+    "https://github.com/devwithfaaz-cyber",
+    "https://www.instagram.com/faaz.ali_/",
   ],
   knowsAbout: [
     "Next.js",

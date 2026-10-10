@@ -12,11 +12,8 @@ export function AboutSection() {
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         {/* Section Header */}
         <div className="mb-14" data-reveal>
-          <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-            01 / ABOUT
-          </span>
-          <h2 className="font-display mt-3 text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)] max-w-3xl">
-            <TextScramble text="Passionate about building full-stack applications with clean code." duration={550} />
+          <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)] max-w-3xl">
+            <TextScramble text="Passionate about building full-stack applications with clean code." duration={550} className="block" />
           </h2>
         </div>
 

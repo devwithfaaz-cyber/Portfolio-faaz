@@ -2,6 +2,7 @@
 
 import React from "react";
 import { EDUCATION, CERTIFICATIONS } from "@/data/portfolioData";
+import { TextScramble } from "./interactive/TextScramble";
 import { GraduationCap, Award, Calendar, MapPin } from "lucide-react";
 
 export function EducationSection() {
@@ -10,11 +11,8 @@ export function EducationSection() {
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         {/* Section Header */}
         <div className="mb-16" data-reveal>
-          <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-            05 / EDUCATION
-          </span>
-          <h2 className="font-display mt-3 text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
-            Education & Credentials
+          <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
+            <TextScramble text="Education & Credentials" duration={550} className="block" />
           </h2>
         </div>
 

@@ -3,8 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { PROJECTS } from "@/data/portfolioData";
-import { ArrowUpRight, ExternalLink, Database, Server, ShieldCheck, Zap } from "lucide-react";
-import { GithubIcon } from "@/components/Icons";
+import { ArrowUpRight, Database, Server, ShieldCheck, Zap } from "lucide-react";
 import { ProjectTilt } from "./interactive/ProjectTilt";
 import { Magnetic } from "./interactive/Magnetic";
 import { TextScramble } from "./interactive/TextScramble";
@@ -20,11 +19,8 @@ export function ProjectShowcase() {
         {/* Header */}
         <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4" data-reveal>
           <div>
-            <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-              02 / SELECTED WORK
-            </span>
-            <h2 className="font-display mt-3 text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
-              <TextScramble text="Featured Projects" duration={500} />
+            <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
+              <TextScramble text="Featured Projects" duration={500} className="block" />
             </h2>
           </div>
           <p className="mono-tag text-xs text-[var(--fg-muted)]">
@@ -89,33 +85,6 @@ export function ProjectShowcase() {
                   </Link>
                 </Magnetic>
 
-                {p1.demoUrl && (
-                  <Magnetic strength={0.2} maxDistance={5}>
-                    <a
-                      href={p1.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg)] transition-all hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                    >
-                      <span>Demo</span>
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  </Magnetic>
-                )}
-
-                {p1.githubUrl && (
-                  <Magnetic strength={0.2} maxDistance={5}>
-                    <a
-                      href={p1.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg-muted)] transition-all hover:border-[var(--fg)] hover:text-[var(--fg)]"
-                    >
-                      <GithubIcon className="h-3.5 w-3.5" />
-                      <span>Code</span>
-                    </a>
-                  </Magnetic>
-                )}
               </div>
             </div>
           </div>
@@ -169,33 +138,6 @@ export function ProjectShowcase() {
                   </Link>
                 </Magnetic>
 
-                {p2.demoUrl && (
-                  <Magnetic strength={0.2} maxDistance={5}>
-                    <a
-                      href={p2.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg)] transition-all hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                    >
-                      <span>Demo</span>
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  </Magnetic>
-                )}
-
-                {p2.githubUrl && (
-                  <Magnetic strength={0.2} maxDistance={5}>
-                    <a
-                      href={p2.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg-muted)] transition-all hover:border-[var(--fg)] hover:text-[var(--fg)]"
-                    >
-                      <GithubIcon className="h-3.5 w-3.5" />
-                      <span>Code</span>
-                    </a>
-                  </Magnetic>
-                )}
               </div>
             </div>
 
@@ -233,33 +175,6 @@ export function ProjectShowcase() {
                 </Link>
               </Magnetic>
 
-              {p3.demoUrl && (
-                <Magnetic strength={0.2} maxDistance={5}>
-                  <a
-                    href={p3.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg)] transition-all hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                  >
-                    <span>Demo</span>
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                </Magnetic>
-              )}
-
-              {p3.githubUrl && (
-                <Magnetic strength={0.2} maxDistance={5}>
-                  <a
-                    href={p3.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg-muted)] transition-all hover:border-[var(--fg)] hover:text-[var(--fg)]"
-                  >
-                    <GithubIcon className="h-3.5 w-3.5" />
-                    <span>Code</span>
-                  </a>
-                </Magnetic>
-              )}
             </div>
           </div>
 
@@ -418,7 +333,7 @@ function Project03Visual() {
         {/* Module 1: Architecture */}
         <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-4">
           <span className="mono-tag text-[10px] text-[var(--accent)] font-semibold">
-            01 / Architecture
+            Architecture
           </span>
           <h4 className="mt-2 text-sm font-medium text-[var(--fg)]">
             Neon Serverless PostgreSQL
@@ -434,7 +349,7 @@ function Project03Visual() {
         {/* Module 2: Security */}
         <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-4">
           <span className="mono-tag text-[10px] text-emerald-500 font-semibold">
-            02 / Security
+            Security
           </span>
           <h4 className="mt-2 text-sm font-medium text-[var(--fg)]">
             JWT Stateless Session
@@ -450,7 +365,7 @@ function Project03Visual() {
         {/* Module 3: CMS Engine */}
         <div className="rounded-lg border border-[var(--border)] bg-[var(--surface)] p-4">
           <span className="mono-tag text-[10px] text-amber-500 font-semibold">
-            03 / Admin Portal
+            Admin Portal
           </span>
           <h4 className="mt-2 text-sm font-medium text-[var(--fg)]">
             Dynamic Project CRUD

@@ -129,7 +129,7 @@ export default async function ProjectDetailPage({
             {/* Overview */}
             <section>
               <h2 className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider mb-3">
-                01 / OVERVIEW
+                OVERVIEW
               </h2>
               <p className="text-base text-[var(--fg)] font-light leading-relaxed">
                 {project.overview}
@@ -160,7 +160,7 @@ export default async function ProjectDetailPage({
             {/* Key Features */}
             <section>
               <h2 className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider mb-4">
-                02 / CORE CAPABILITIES & FEATURES
+                CORE CAPABILITIES & FEATURES
               </h2>
               <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6 divide-y divide-[var(--border-subtle)]">
                 {project.features.map((feature, i) => (
@@ -180,7 +180,7 @@ export default async function ProjectDetailPage({
             {/* Architecture */}
             <section>
               <h2 className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider mb-3">
-                03 / SYSTEM ARCHITECTURE
+                SYSTEM ARCHITECTURE
               </h2>
               <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-subtle)] p-6">
                 <div className="flex items-center gap-2 mb-3">
@@ -198,7 +198,7 @@ export default async function ProjectDetailPage({
             {/* Challenges & Decisions */}
             <section>
               <h2 className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider mb-3">
-                04 / ENGINEERING CHALLENGES
+                ENGINEERING CHALLENGES
               </h2>
               <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-6">
                 <div className="flex items-center gap-2 mb-3">
@@ -216,7 +216,7 @@ export default async function ProjectDetailPage({
             {/* Outcome */}
             <section className="border-t border-[var(--border)] pt-8">
               <h2 className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider mb-3">
-                05 / RESULTS & OUTCOME
+                RESULTS & OUTCOME
               </h2>
               <div className="flex items-start gap-3">
                 <ShieldCheck className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />

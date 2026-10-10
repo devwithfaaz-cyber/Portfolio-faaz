@@ -1,12 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { PERSONAL_INFO, PRINCIPLES } from "@/data/portfolioData";
-import { CartoonProfile } from "@/components/CartoonProfile";
+import { ProfileImage } from "@/components/ProfileImage";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { BackToTop } from "@/components/BackToTop";
+import { TextScramble } from "@/components/interactive/TextScramble";
 import { ArrowRight, Code, Database, Sparkles, Terminal, MapPin } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -57,7 +58,7 @@ export default function AboutPage() {
               ABOUT FAAZ MIRZA
             </span>
             <h1 className="font-display mt-3 text-4xl sm:text-5xl font-normal tracking-tight text-[var(--fg)]">
-              Crafting efficient, scalable digital products with thoughtful code.
+              <TextScramble text="Crafting efficient, scalable digital products with thoughtful code." duration={650} className="block" />
             </h1>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-[var(--fg-muted)]">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1">
@@ -76,29 +77,31 @@ export default function AboutPage() {
 
           {/* Narrative Story Section */}
           <div className="grid grid-cols-1 gap-10 pb-16 border-b border-[var(--border)] md:grid-cols-12 md:gap-14 md:items-center">
-            <div className="md:col-span-5" data-reveal>
-              <CartoonProfile className="w-40 sm:w-44" />
-              <p className="font-display mt-7 text-2xl font-light text-[var(--fg)] leading-relaxed">
+            <div className="order-2 space-y-6 md:order-1 md:col-span-7" data-reveal data-reveal-delay="100">
+              <p className="font-display text-2xl font-light text-[var(--fg)] leading-relaxed">
                 &ldquo;{PERSONAL_INFO.about}&rdquo;
               </p>
+              <div className="space-y-6 text-base text-[var(--fg-muted)] font-light leading-relaxed">
+                <p>
+                  My passion for software engineering started with curiosity about how complex
+                  systems operate beneath the surface. From dissecting relational databases to
+                  building reactive client applications, I treat code as both a logical puzzle
+                  and a creative craft.
+                </p>
+                <p>
+                  Rather than jumping to bloated libraries or superficial quick fixes, I emphasize
+                  foundational computer science principles: clean architecture, deterministic state
+                  management, normalized data schemas, and respectful user interface ergonomics.
+                </p>
+                <p>
+                  I thrive in environments that challenge analytical thinking, where quality is
+                  judged by performance metrics, maintainability, and real-world reliability.
+                </p>
+              </div>
             </div>
 
-            <div className="md:col-span-7 space-y-6 text-base text-[var(--fg-muted)] font-light leading-relaxed" data-reveal data-reveal-delay="100">
-              <p>
-                My passion for software engineering started with curiosity about how complex
-                systems operate beneath the surface. From dissecting relational databases to
-                building reactive client applications, I treat code as both a logical puzzle
-                and a creative craft.
-              </p>
-              <p>
-                Rather than jumping to bloated libraries or superficial quick fixes, I emphasize
-                foundational computer science principles: clean architecture, deterministic state
-                management, normalized data schemas, and respectful user interface ergonomics.
-              </p>
-              <p>
-                I thrive in environments that challenge analytical thinking, where quality is
-                judged by performance metrics, maintainability, and real-world reliability.
-              </p>
+            <div className="order-1 flex justify-center md:order-2 md:col-span-5 md:justify-end" data-reveal>
+              <ProfileImage className="w-64 sm:w-72 md:w-full md:max-w-[420px]" />
             </div>
           </div>
 
@@ -110,7 +113,7 @@ export default function AboutPage() {
                   ENGINEERING BASELINE
                 </span>
                 <h2 className="font-display mt-2 text-2xl sm:text-3xl font-light text-[var(--fg)]">
-                  Core Personal Principles
+                  <TextScramble text="Core Personal Principles" duration={550} className="block" />
                 </h2>
               </div>
             </div>
@@ -142,7 +145,7 @@ export default function AboutPage() {
                 HOW I WORK
               </span>
               <h2 className="font-display mt-2 text-2xl sm:text-3xl font-light text-[var(--fg)]">
-                Development Methodology
+                <TextScramble text="Development Methodology" duration={550} className="block" />
               </h2>
             </div>
 

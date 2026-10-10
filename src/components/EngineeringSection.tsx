@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ENGINEERING_AREAS, ENGINEERING_APPROACH } from "@/data/portfolioData";
+import { TextScramble } from "./interactive/TextScramble";
 import { Check } from "lucide-react";
 
 export function EngineeringSection() {
@@ -10,11 +11,8 @@ export function EngineeringSection() {
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         {/* Section Header */}
         <div className="mb-16" data-reveal>
-          <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-            03 / ENGINEERING
-          </span>
-          <h2 className="font-display mt-3 text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)] max-w-2xl">
-            Full-Stack Engineering & Architecture
+          <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)] max-w-2xl">
+            <TextScramble text="Full-Stack Engineering & Architecture" duration={600} className="block" />
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[var(--fg-muted)] font-light max-w-3xl leading-relaxed">
             &ldquo;From high-performance React/Next.js interfaces to robust PostgreSQL database design and serverless Node.js APIs.&rdquo;

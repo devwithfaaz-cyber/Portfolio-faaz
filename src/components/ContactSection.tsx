@@ -2,7 +2,10 @@
 
 import React, { useState } from "react";
 import { PERSONAL_INFO } from "@/data/portfolioData";
-import { ArrowRight, CheckCircle2, AlertCircle, Loader2, ArrowUpRight, Check, Copy } from "lucide-react";
+import { TextScramble } from "./interactive/TextScramble";
+import { SocialLinkButton } from "./SocialLinkButton";
+import { CONTACT_EMAIL, EmailLinkButton } from "./EmailLinkButton";
+import { ArrowRight, CheckCircle2, AlertCircle, Loader2, Check, Copy } from "lucide-react";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -18,7 +21,7 @@ export function ContactSection() {
 
   const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText(PERSONAL_INFO.email);
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
       setEmailCopied(true);
     } catch {
       setEmailCopied(false);
@@ -98,12 +101,8 @@ export function ContactSection() {
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-16 items-start">
           {/* Left Column: Direct Info & Editorial */}
           <div className="lg:col-span-5" data-reveal>
-            <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-              06 / CONTACT
-            </span>
-
-            <h2 className="font-display mt-3 text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
-              Have a project in mind or an opportunity?
+            <h2 className="font-display text-3xl sm:text-4xl font-normal tracking-tight text-[var(--fg)]">
+              <TextScramble text="Have a project in mind or an opportunity?" duration={550} className="block" />
             </h2>
 
             <p className="mt-4 text-base text-[var(--fg-muted)] leading-relaxed font-light">
@@ -116,12 +115,7 @@ export function ContactSection() {
                 Direct Contact
               </span>
               <div className="mt-1 flex flex-wrap items-center justify-between gap-2">
-                <a
-                  href={`mailto:${PERSONAL_INFO.email}`}
-                  className="min-w-0 break-all font-display text-sm font-medium text-[var(--fg)] hover:text-[var(--accent)] transition-colors sm:text-base"
-                >
-                  {PERSONAL_INFO.email}
-                </a>
+                <EmailLinkButton className="flex-1" />
                 <button
                   type="button"
                   onClick={() => void copyEmail()}
@@ -132,13 +126,6 @@ export function ContactSection() {
                   <span aria-live="polite">{emailCopied ? "Copied ✓" : "Copy"}</span>
                 </button>
               </div>
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-[var(--accent)] hover:underline"
-              >
-                <span>Email Directly</span>
-                <ArrowRight className="h-3 w-3" />
-              </a>
             </div>
 
             {/* Social channels: strictly GitHub, LinkedIn, Instagram */}
@@ -148,35 +135,27 @@ export function ContactSection() {
               </span>
               <div className="mt-3 flex flex-wrap gap-4 text-xs font-medium text-[var(--fg-muted)]">
                 {PERSONAL_INFO.socials.github && (
-                  <a
+                  <SocialLinkButton
+                    platform="github"
                     href={PERSONAL_INFO.socials.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link inline-flex items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                  >
-                    GitHub <ArrowUpRight className="h-3 w-3" />
-                  </a>
+                  />
                 )}
                 {PERSONAL_INFO.socials.linkedin && (
-                  <a
+                  <SocialLinkButton
+                    platform="linkedin"
                     href={PERSONAL_INFO.socials.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link inline-flex items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                  >
-                    LinkedIn <ArrowUpRight className="h-3 w-3" />
-                  </a>
+                  />
                 )}
                 {PERSONAL_INFO.socials.instagram && (
-                  <a
+                  <SocialLinkButton
+                    platform="instagram"
                     href={PERSONAL_INFO.socials.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link inline-flex items-center gap-1 hover:text-[var(--fg)] transition-colors"
-                  >
-                    Instagram <ArrowUpRight className="h-3 w-3" />
-                  </a>
+                  />
                 )}
+                <SocialLinkButton
+                  platform="whatsapp"
+                  href={PERSONAL_INFO.socials.whatsapp}
+                />
               </div>
             </div>
           </div>

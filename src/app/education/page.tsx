@@ -41,7 +41,7 @@ export default function EducationPage() {
           {/* Header */}
           <div className="mb-14 border-b border-[var(--border)] pb-10">
             <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-              05 / EDUCATION & CREDENTIALS
+              EDUCATION & CREDENTIALS
             </span>
             <h1 className="font-display mt-3 text-4xl sm:text-5xl font-normal tracking-tight text-[var(--fg)]">
               Academic Foundations & Continuous Learning

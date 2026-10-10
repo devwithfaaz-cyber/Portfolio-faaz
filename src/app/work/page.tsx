@@ -8,8 +8,7 @@ import { Footer } from "@/components/Footer";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { BackToTop } from "@/components/BackToTop";
-import { ArrowUpRight, ExternalLink, Filter } from "lucide-react";
-import { GithubIcon } from "@/components/Icons";
+import { ArrowUpRight, Filter } from "lucide-react";
 
 export default function WorkPage() {
   const [filter, setFilter] = useState<string>("All");
@@ -33,7 +32,7 @@ export default function WorkPage() {
           {/* Header */}
           <div className="mb-14 border-b border-[var(--border)] pb-10">
             <span className="mono-tag text-xs font-semibold text-[var(--accent)] tracking-wider">
-              02 / SELECTED WORK
+              SELECTED WORK
             </span>
             <h1 className="font-display mt-3 text-4xl sm:text-5xl font-normal tracking-tight text-[var(--fg)]">
               Full-Stack Applications & Systems
@@ -74,10 +73,6 @@ export default function WorkPage() {
               >
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[var(--border-subtle)] pb-4">
                   <div className="flex items-center gap-3">
-                    <span className="mono-tag text-xs font-semibold text-[var(--accent)]">
-                      PROJECT {project.number}
-                    </span>
-                    <span className="text-xs text-[var(--fg-subtle)]">·</span>
                     <span className="text-xs text-[var(--fg-muted)]">{project.tagline}</span>
                   </div>
                   <span className="mono-tag text-[10px] text-[var(--fg-subtle)]">
@@ -106,38 +101,14 @@ export default function WorkPage() {
                     </div>
                   </div>
 
-                  <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-end pt-2">
+                  <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col justify-end pt-2">
                     <Link
                       href={`/projects/${project.slug}`}
                       className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-[var(--fg)] px-4 py-2.5 text-xs font-medium text-[var(--bg)] transition-all hover:bg-[var(--accent)] hover:text-white"
                     >
-                      <span>Deep Dive & Details</span>
+                      <span>Details</span>
                       <ArrowUpRight className="h-3.5 w-3.5" />
                     </Link>
-
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                      >
-                        <span>Live Demo</span>
-                        <ExternalLink className="h-3.5 w-3.5" />
-                      </a>
-                    )}
-
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-medium text-[var(--fg-muted)] hover:border-[var(--fg)] hover:text-[var(--fg)]"
-                      >
-                        <GithubIcon className="h-3.5 w-3.5" />
-                        <span>Source Code</span>
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>

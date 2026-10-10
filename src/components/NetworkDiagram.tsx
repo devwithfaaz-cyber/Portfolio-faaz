@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Layers, Database, Cpu, Globe, Server, CheckCircle2 } from "lucide-react";
 
 interface NodeData {
@@ -9,8 +9,8 @@ interface NodeData {
   label: string;
   role: string;
   specs: string[];
-  x: number;
-  y: number;
+  column: number;
+  row: number;
   icon: React.ElementType;
 }
 
@@ -21,8 +21,8 @@ const NODES: NodeData[] = [
     label: "Core",
     role: "System Design & Orchestration",
     specs: ["Clean Architecture", "Modular Services", "Type Invariants"],
-    x: 50,
-    y: 50,
+    column: 2,
+    row: 1,
     icon: Layers,
   },
   {
@@ -31,8 +31,8 @@ const NODES: NodeData[] = [
     label: "Client",
     role: "Next.js & React Interface Layer",
     specs: ["Server Components", "Tailwind Design Tokens", "Sub-100ms INP"],
-    x: 20,
-    y: 26,
+    column: 1,
+    row: 2,
     icon: Globe,
   },
   {
@@ -41,8 +41,8 @@ const NODES: NodeData[] = [
     label: "Gateway",
     role: "REST & Authorization Endpoints",
     specs: ["JWT Auth Validation", "JSON Rate Limiting", "Schema Parsers"],
-    x: 80,
-    y: 26,
+    column: 3,
+    row: 2,
     icon: Cpu,
   },
   {
@@ -51,8 +51,8 @@ const NODES: NodeData[] = [
     label: "Server",
     role: "Node.js Asynchronous Runtime",
     specs: ["Event Loops", "Background Jobs", "Secure Session Handlers"],
-    x: 22,
-    y: 76,
+    column: 2,
+    row: 3,
     icon: Server,
   },
   {
@@ -61,29 +61,134 @@ const NODES: NodeData[] = [
     label: "Storage",
     role: "PostgreSQL & Redis Cache Engine",
     specs: ["Normalized SQL", "Neon Connection Pool", "Redis Ephemeral Keys"],
-    x: 78,
-    y: 76,
+    column: 2,
+    row: 4,
     icon: Database,
   },
 ];
 
-const CONNECTIONS = [
+const CONNECTIONS: { from: string; to: string; route?: "left" }[] = [
   { from: "architecture", to: "frontend" },
   { from: "architecture", to: "api" },
   { from: "architecture", to: "backend" },
-  { from: "architecture", to: "database" },
+  { from: "architecture", to: "database", route: "left" },
   { from: "frontend", to: "api" },
   { from: "api", to: "backend" },
   { from: "backend", to: "database" },
 ];
 
+interface NodeBounds {
+  left: number;
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+}
+
+interface DiagramLayout {
+  width: number;
+  height: number;
+  paths: Map<string, string>;
+}
+
+function getBoundaryPoint(bounds: NodeBounds, toward: { x: number; y: number }) {
+  const dx = toward.x - bounds.centerX;
+  const dy = toward.y - bounds.centerY;
+  const xScale = dx === 0 ? Number.POSITIVE_INFINITY : bounds.width / 2 / Math.abs(dx);
+  const yScale = dy === 0 ? Number.POSITIVE_INFINITY : bounds.height / 2 / Math.abs(dy);
+  const scale = Math.min(xScale, yScale);
+
+  return {
+    x: bounds.centerX + dx * scale,
+    y: bounds.centerY + dy * scale,
+  };
+}
+
 export function NetworkDiagram() {
   const [activeNodeId, setActiveNodeId] = useState<string>("architecture");
+  const [layout, setLayout] = useState<DiagramLayout | null>(null);
+  const diagramRef = useRef<HTMLDivElement>(null);
+  const nodeRefs = useRef(new Map<string, HTMLButtonElement>());
 
   const activeNode = NODES.find((n) => n.id === activeNodeId) || NODES[0];
 
+  useEffect(() => {
+    const diagram = diagramRef.current;
+    if (!diagram) return;
+
+    let frame = 0;
+    const measure = () => {
+      const diagramBounds = diagram.getBoundingClientRect();
+      const boundsById = new Map<string, NodeBounds>();
+
+      for (const node of NODES) {
+        const element = nodeRefs.current.get(node.id);
+        if (!element) continue;
+
+        const left = element.offsetLeft;
+        const top = element.offsetTop;
+        const width = element.offsetWidth;
+        const height = element.offsetHeight;
+        boundsById.set(node.id, {
+          left,
+          centerX: left + width / 2,
+          centerY: top + height / 2,
+          width,
+          height,
+        });
+      }
+
+      const paths = new Map<string, string>();
+      for (const connection of CONNECTIONS) {
+        const source = boundsById.get(connection.from);
+        const target = boundsById.get(connection.to);
+        if (!source || !target) continue;
+
+        let path: string;
+        if (connection.route === "left") {
+          const start = { x: source.left, y: source.centerY };
+          const end = { x: target.left, y: target.centerY };
+          const laneX = 4;
+          path = `M ${start.x} ${start.y} L ${laneX} ${start.y} L ${laneX} ${end.y} L ${end.x} ${end.y}`;
+        } else {
+          const start = getBoundaryPoint(source, {
+            x: target.centerX,
+            y: target.centerY,
+          });
+          const end = getBoundaryPoint(target, {
+            x: source.centerX,
+            y: source.centerY,
+          });
+          path = `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
+        }
+
+        paths.set(`${connection.from}-${connection.to}`, path);
+      }
+
+      setLayout({
+        width: diagramBounds.width,
+        height: diagramBounds.height,
+        paths,
+      });
+    };
+    const scheduleMeasure = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
+    };
+
+    const observer = new ResizeObserver(scheduleMeasure);
+    observer.observe(diagram);
+    nodeRefs.current.forEach((element) => observer.observe(element));
+    scheduleMeasure();
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="relative w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm transition-all duration-300">
+    <div className="relative mx-auto w-full max-w-[440px] rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm transition-all duration-300">
       {/* Top micro status bar */}
       <div className="mb-4 flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
         <div className="flex items-center gap-2">
@@ -102,28 +207,29 @@ export function NetworkDiagram() {
         </div>
       </div>
 
-      {/* SVG Canvas for interactive nodes & connections */}
-      <div className="relative h-[280px] w-full sm:h-[320px]">
+      {/* Diagram and its independently laid-out information panel */}
+      <div
+        ref={diagramRef}
+        className="relative grid h-[400px] w-full grid-cols-3 grid-rows-4 place-items-center sm:h-[420px]"
+      >
         <svg
-          viewBox="0 0 100 100"
-          className="absolute inset-0 h-full w-full overflow-visible pointer-events-none"
-          preserveAspectRatio="none"
+          viewBox={layout ? `0 0 ${layout.width} ${layout.height}` : undefined}
+          className="pointer-events-none absolute inset-0 h-full w-full"
+          aria-hidden="true"
         >
-          {CONNECTIONS.map((conn) => {
-            const source = NODES.find((n) => n.id === conn.from)!;
-            const target = NODES.find((n) => n.id === conn.to)!;
+          {[...(layout?.paths ?? [])].map(([key, path]) => {
+            const [from, to] = key.split("-");
             const isHighlighted =
-              activeNodeId === conn.from || activeNodeId === conn.to;
+              activeNodeId === from || activeNodeId === to;
 
             return (
-              <line
-                key={`${conn.from}-${conn.to}`}
-                x1={source.x}
-                y1={source.y}
-                x2={target.x}
-                y2={target.y}
+              <path
+                key={key}
+                data-connection={key}
+                d={path}
+                fill="none"
                 stroke={isHighlighted ? "var(--accent)" : "var(--border)"}
-                strokeWidth={isHighlighted ? "0.6" : "0.35"}
+                strokeWidth={isHighlighted ? "1.8" : "1"}
                 strokeDasharray={isHighlighted ? "1 1" : undefined}
                 className="transition-all duration-300"
               />
@@ -131,7 +237,7 @@ export function NetworkDiagram() {
           })}
         </svg>
 
-        {/* Nodes placed via percentage */}
+        {/* Nodes placed in a responsive grid */}
         {NODES.map((node) => {
           const Icon = node.icon;
           const isActive = activeNodeId === node.id;
@@ -139,15 +245,20 @@ export function NetworkDiagram() {
           return (
             <button
               key={node.id}
+              data-node-id={node.id}
               type="button"
               onClick={() => setActiveNodeId(node.id)}
               onMouseEnter={() => setActiveNodeId(node.id)}
               onFocus={() => setActiveNodeId(node.id)}
-              style={{ left: `${node.x}%`, top: `${node.y}%` }}
-              className={`absolute -translate-x-1/2 -translate-y-1/2 group flex flex-col items-center focus:outline-none transition-transform duration-200 ${
+              ref={(element) => {
+                if (element) nodeRefs.current.set(node.id, element);
+                else nodeRefs.current.delete(node.id);
+              }}
+              style={{ gridColumn: node.column, gridRow: node.row }}
+              className={`relative z-10 group flex max-w-full flex-col items-center focus:outline-none transition-transform duration-200 ${
                 isActive ? "scale-105 z-10" : "scale-100 z-0 hover:scale-105"
               }`}
-              aria-label={`Inspect ${node.name} architecture node`}
+              aria-label={`Inspect ${node.name} node`}
             >
               <div
                 className={`flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-xl border transition-all duration-200 shadow-sm ${
